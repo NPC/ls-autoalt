@@ -30,22 +30,29 @@ class PluginAutoalt_HookAutoalt extends Hook {
             $oTopic = $aVars['oTopic'];
             $oTopic = $this->Topic_GetTopicById($oTopic->getId());
             $sTopicTitle = $oTopic->getTitle();
-            $sBlogTitle = null;
+            $sBlogTitle = NULL;
+            // whether blog should be added to title
+            $bConcatenate = TRUE;
 
             // Get blog name
             if (Config::Get('plugin.autoalt.include_blog_name')) {
 	            $iBlogId = $oTopic->getBlogId();
 	            if (isset($iBlogId)) {
 	            	$sBlogTitle = $this->Blog_GetBlogById($iBlogId)->GetTitle();
+
+                    // If blog name already contained in topic title - don't add it
+                    if(strpos($sTopicTitle, $sBlogTitle) !== FALSE)
+                        $bConcatenate = FALSE;
 	            }
 	        } else {
-	        	$sBlogTitle = null;
+	        	$sBlogTitle = NULL;
 	        }
 
             if ($sText = $this->_addImageParam(
 	            	$oTopic->getTextSource(), 
 	            	$this->_miniSanitize($sTopicTitle), 
-	            	(isset($sBlogTitle) ? $this->_miniSanitize($sBlogTitle) : null)))
+	            	(isset($sBlogTitle) ? $this->_miniSanitize($sBlogTitle) : null),
+                    $bConcatenate))
             {
             	// Update topic with the results of parsing
                 list($sTextShort, $sTextNew, $sTextCut) = $this->Text_Cut($sText);
@@ -72,7 +79,7 @@ class PluginAutoalt_HookAutoalt extends Hook {
      * @param type $sInsert
      * @return type
      */
-    protected function _addImageParam($sText, $sTopic, $sBlog) {
+    protected function _addImageParam($sText, $sTopic, $sBlog, $bConcatenate) {
         $sTextNew = '';
         
         // Find all images
@@ -87,12 +94,11 @@ class PluginAutoalt_HookAutoalt extends Hook {
             // Loop through all the images
             foreach ($aMatchesImg as $key => $sImg) {
                 // default inserted alt (applied if no alt present)
-                $sInsert = ' alt="'.(isset($sBlog) ? $sBlog.': ' : '').$sTopic.'"';
+                $sInsert = ' alt="'.($bConcatenate && isset($sBlog) ? $sBlog.': ' : '').$sTopic.'"';
                 $changeFlag = TRUE;
 
 				if (preg_match('/alt=""/', $sImg)) {
-                    // Empty alt found
-                	$sInsert = ' alt="'.(isset($sBlog) ? $sBlog.': ' : '').$sTopic.'"';
+                    // Empty alt found - no change to $sInsert
             	} elseif (preg_match('/alt="([^"]+)"/', $sImg, $sAltText)) {
             		// Non-empty alt found
             		// Don't add if no blog - or blog name already present
