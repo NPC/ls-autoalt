@@ -55,7 +55,15 @@ class PluginAutoalt_HookAutoalt extends Hook {
                     $bConcatenate))
             {
             	// Update topic with the results of parsing
-                list($sTextShort, $sTextNew, $sTextCut) = $this->Text_Cut($sText);
+                // Check for presence of AutoCut plugin to avoid removing its cutting logic
+                if(!class_exists('PluginAutocut')) {
+                    // No autocut - use standard cutting
+                    list($sTextShort, $sTextNew, $sTextCut) = $this->Text_Cut($sText);
+                } else {
+                    // AutoCut present - use its cutting mechanism
+                    list($sTextShort, $sTextNew, $sTextCut) = $this->Text_Cut($this->PluginAutocut_Autocut_CutAdd($sText));
+                }
+
                 $oTopic->setCutText($sTextCut);
                 $oTopic->setText($this->Text_Parser($sTextNew));
                 $oTopic->setTextShort($this->Text_Parser($sTextShort));
