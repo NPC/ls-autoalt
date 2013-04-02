@@ -105,8 +105,9 @@ class PluginAutoalt_HookAutoalt extends Hook {
                 $sInsert = ' alt="'.($bConcatenate && isset($sBlog) ? $sBlog.': ' : '').$sTopic.'"';
                 $changeFlag = TRUE;
 
-				if (preg_match('/alt=""/', $sImg)) {
+				if (preg_match('/alt=""/', $sImg) || Config::Get('plugin.autoalt.ignore_description')) {
                     // Empty alt found - no change to $sInsert
+                    // Or alt should be ignored by "ignore_description" setting of the plugin
             	} elseif (preg_match('/alt="([^"]+)"/', $sImg, $sAltText)) {
             		// Non-empty alt found
             		// Don't add if no blog - or blog name already present

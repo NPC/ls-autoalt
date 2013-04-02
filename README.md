@@ -1,5 +1,5 @@
 # AutoAlt
-Plugin for Livestreet (1.0.1)
+Plugin for Livestreet (1.1)
 
 Adds blog name to the ALT-attribute of images of topics (applied when saving the topic).
 
@@ -8,7 +8,7 @@ Follows these scenarios:
 - If the ALT is present and does not contain blog name, then adds "Blog name: Existing ALT".
 Otherwise the ALT is not modified.
 
-It is possible to diable adding blog name in the config/config.php file.
+It is possible to diable adding blog name in the config/config.php file, or to ignore the original image ALT.
 
 Photosets are not affected by this plugin.
 
@@ -16,7 +16,7 @@ Photosets are not affected by this plugin.
 ---
 
 AutoAlt
-Плагин для Livestreet (1.0.1)
+Плагин для Livestreet (1.1)
 
 Добавляет название блога топика к ALT-атрибуту изображений топиков (при сохранении топика).
 
@@ -25,6 +25,6 @@ AutoAlt
 - Если alt есть и не содержит название блога, то добавляет "Название блога: Существующий ALT".
 Иначе alt не изменяется.
 
-В config/config.php можно отключить функцию добавления блога.
+В config/config.php можно отключить функцию добавления блога, или игнорировать исходный ALT изображения.
 
 Этот плагин не влияет на фотосеты.
