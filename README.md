@@ -1,5 +1,5 @@
 # AutoAlt
-Plugin for Livestreet (1.1)
+Plugin for Livestreet
 
 Adds blog name to the ALT-attribute of images of topics (applied when saving the topic).
 
@@ -16,7 +16,7 @@ Photosets are not affected by this plugin.
 ---
 
 AutoAlt
-Плагин для Livestreet (1.1)
+Плагин для Livestreet
 
 Добавляет название блога топика к ALT-атрибуту изображений топиков (при сохранении топика).
 
