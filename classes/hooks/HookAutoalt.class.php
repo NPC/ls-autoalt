@@ -56,7 +56,7 @@ class PluginAutoalt_HookAutoalt extends Hook {
             {
             	// Update topic with the results of parsing
                 // Check for presence of AutoCut plugin to avoid removing its cutting logic
-                if(!class_exists('PluginAutocut')) {
+                if(!in_array('PluginAutocut', $this->Engine_GetPlugins())) {
                     // No autocut - use standard cutting
                     list($sTextShort, $sTextNew, $sTextCut) = $this->Text_Cut($sText);
                 } else {
