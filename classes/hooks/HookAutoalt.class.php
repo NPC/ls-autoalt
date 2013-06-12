@@ -56,7 +56,9 @@ class PluginAutoalt_HookAutoalt extends Hook {
             {
             	// Update topic with the results of parsing
                 // Check for presence of AutoCut plugin to avoid removing its cutting logic
-                if(!in_array('PluginAutocut', $this->Engine_GetPlugins())) {
+                $plugins = Engine::getInstance()->GetPlugins();
+
+                if(!isset($plugins['autocut'])) {
                     // No autocut - use standard cutting
                     list($sTextShort, $sTextNew, $sTextCut) = $this->Text_Cut($sText);
                 } else {
@@ -91,14 +93,14 @@ class PluginAutoalt_HookAutoalt extends Hook {
         $sTextNew = '';
         
         // Find all images
-        $patternImg = "(<img[^<>+]*>)";
+        $patternImg = "(<img[^<>]*>)";
 
         // find all images first
         if (preg_match_all($patternImg, $sText, $aMatches) > 0) {
             $aMatchesImg = $aMatches[0];
             
             $iLast = count($aMatchesImg) - 1;
-            
+
             // Loop through all the images
             foreach ($aMatchesImg as $key => $sImg) {
                 // default inserted alt (applied if no alt present)
