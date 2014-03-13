@@ -8,7 +8,7 @@
 		<lang name="russian">Антон Масло</lang>
 	</author>
 	<homepage>http://amaslo.com</homepage>
-	<version>1.3</version>
+	<version>1.4</version>
 	<requires>
 		<livestreet>1.0.1</livestreet>
 		<plugins>

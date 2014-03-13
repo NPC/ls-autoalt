@@ -8,7 +8,9 @@ Follows these scenarios:
 - If the ALT is present and does not contain blog name, then adds "Blog name: Existing ALT".
 Otherwise the ALT is not modified.
 
-It is possible to diable adding blog name in the config/config.php file, or to ignore the original image ALT.
+It is possible to disable adding blog name in the config/config.php file, or to ignore the original image ALT.
+
+v1.4 - In order to always populate title text with the same as for ALT set override_title_with_alt to true in config/config.php file.
 
 Photosets are not affected by this plugin.
 
@@ -26,5 +28,7 @@ AutoAlt
 Иначе alt не изменяется.
 
 В config/config.php можно отключить функцию добавления блога, или игнорировать исходный ALT изображения.
+
+v1.4 - Также возможно всегда заполнять атрибут TITLE с тем же текстом, что записывается в ALT, для этого установите параметр override_title_with_alt в значение true в файле config/config.php.
 
 Этот плагин не влияет на фотосеты.
